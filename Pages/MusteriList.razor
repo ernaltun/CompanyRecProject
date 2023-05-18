@@ -1,0 +1,68 @@
+﻿@page "/Musteris"
+@using CompanyRecProject.Data
+@inject MusteriService musterisService
+
+<NavLink class="nav-link" href="MusteriEkle">
+    <span class="oi oi-plus" aria-hidden="true"> Müşteri Ekle</span>
+
+</NavLink>
+
+
+
+<h3>MusteriList</h3>
+
+@if(MusteriObject is null)
+{
+    <p><em>Yükleniyor...........</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Musteri No
+                </th>
+                <th>
+                    Musteri İsim
+                </th>
+                <th>
+                    Musteri Bakiye
+                </th>
+                <th>
+                    Musteri Adress
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in MusteriObject)
+            {
+                <tr>
+                    <td>
+                        @item.Id
+                    </td>
+                    <td>
+                        @item.CostumerName
+                    </td>
+                    <td>
+                        @item.Balance
+                    </td>
+                    <td>
+                        @item.CostumerAdress
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+}
+
+@code {
+    List<Musteri> MusteriObject;
+
+    protected override async Task OnInitializedAsync()
+    {
+        MusteriObject = await Task.Run(() => musterisService.GetAllMusteris());
+    }
+
+}
