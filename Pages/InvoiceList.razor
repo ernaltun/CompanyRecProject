@@ -1,0 +1,72 @@
+﻿@page "/FaturaList"
+@using CompanyRecProject.Data
+@inject InvoiceService invoiceService
+<h3>InvoiceList</h3>
+
+<h3>MÜŞTERİLER</h3>
+
+@if(InvoiceObject is null)
+{
+    <button class="btn btn-primary" type="button" disabled>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Yükleniyor...
+    </button>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Fatura No
+                </th>
+                <th>
+                    MusteriId
+                </th>
+                <th>
+                    Fatura Tipi
+                </th>
+                <th>
+                    Fatura Tarihi
+                </th>
+                <th>
+                    Fatura Tutarı
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in InvoiceObject)
+            {
+                <tr>
+                    <td>
+                        @item.InvoiceId
+                    </td>
+                    <td>
+                        @item.musteriId
+                    </td>
+                    <td>
+                        @item.InvoiceType
+                    </td>
+                    <td>
+                        @item.InvoiceDate
+                    </td>
+                    <td>
+                        @item.Price
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+}
+@code {
+    List<Invoice> InvoiceObject;
+
+    protected override async Task OnInitializedAsync()
+    {
+        InvoiceObject = await Task.Run(() => invoiceService.GetAllInvoices());
+    }
+}
+
+
+
