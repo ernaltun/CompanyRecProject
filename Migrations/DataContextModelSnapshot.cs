@@ -24,26 +24,26 @@ namespace CompanyRecProject.Migrations
 
             modelBuilder.Entity("CompanyRecProject.Data.Invoice", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("InvoiceId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InvoiceId"));
 
-                    b.Property<DateTime>("InvoiceDate")
+                    b.Property<DateTime?>("InvoiceDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("InvoiceType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<string>("musteriName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
-
-                    b.Property<int>("musteriId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
+                    b.HasKey("InvoiceId");
 
                     b.ToTable("Invoices");
                 });
@@ -74,6 +74,42 @@ namespace CompanyRecProject.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Musteris");
+                });
+
+            modelBuilder.Entity("CompanyRecProject.Data.Support", b =>
+                {
+                    b.Property<int>("SupportId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SupportId"));
+
+                    b.Property<string>("EmployeeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Request")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Requester")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ResentTransactions")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("SupportDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SupportStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SupportId");
+
+                    b.ToTable("Supports");
                 });
 #pragma warning restore 612, 618
         }

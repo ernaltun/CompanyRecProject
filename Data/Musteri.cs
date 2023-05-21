@@ -7,10 +7,6 @@
         public int Balance { get; set; }
         public string CustomerAdress { get; set; }
         public string CustomerPhone { get; set; }
-
-		public static implicit operator Musteri?(Invoice? v)
-		{
-			throw new NotImplementedException();
-		}
+		
 	}
 }

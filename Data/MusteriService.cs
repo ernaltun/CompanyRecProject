@@ -27,7 +27,7 @@ namespace CompanyRecProject.Data
         public async Task<Musteri> GetMusteriById(int id)
         {
             Musteri musteri = await _dataContext.Musteris.FirstOrDefaultAsync(x => x.Id == id);
-            return musteri;
+			return musteri;
             
         }
 

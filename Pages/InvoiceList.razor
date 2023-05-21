@@ -1,9 +1,15 @@
 ﻿@page "/FaturaList"
 @using CompanyRecProject.Data
+@inject MusteriService musteriService
 @inject InvoiceService invoiceService
-<h3>InvoiceList</h3>
 
-<h3>MÜŞTERİLER</h3>
+
+<NavLink class="nav-link" href="AddNewInvoice">
+    <span class="btn btn-success justify-contentstart-0" aria-hidden="true"> Fatura Ekle</span>
+
+</NavLink>
+
+<h3>FATURALAR</h3>
 
 @if(InvoiceObject is null)
 {
@@ -21,7 +27,7 @@ else
                     Fatura No
                 </th>
                 <th>
-                    MusteriId
+                   Kurum Adı
                 </th>
                 <th>
                     Fatura Tipi
@@ -42,7 +48,7 @@ else
                         @item.InvoiceId
                     </td>
                     <td>
-                        @item.musteriId
+                        @item.musteriName
                     </td>
                     <td>
                         @item.InvoiceType
@@ -65,6 +71,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         InvoiceObject = await Task.Run(() => invoiceService.GetAllInvoices());
+
     }
 }
 

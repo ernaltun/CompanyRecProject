@@ -1,0 +1,90 @@
+﻿@page "/SupportList"
+@using CompanyRecProject.Data
+@inject SupportService supportService
+
+
+
+<NavLink class="nav-link" href="AddNewSupport">
+    <span class="btn btn-success justify-contentstart-0" aria-hidden="true">Yeni Talep Ekle</span>
+
+</NavLink>
+
+<h3>Destek Talep Listesi</h3>
+
+@if (SupportObject is null)
+{
+    <button class="btn btn-primary" type="button" disabled>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Yükleniyor...
+    </button>
+}
+
+else
+{
+    <table class="table border-dark table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    Talep No
+                </th>
+                <th>
+                    Talep Tarihi
+                </th>
+                <th>
+                    Talep Eden
+                </th>
+                <th>
+                    Talep
+                </th>
+                <th>
+                    Son işlem
+                </th>
+                <th>
+                    Personel
+                </th>
+                <th>
+                    Talep Durumu
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in SupportObject)
+            {
+                <tr>
+                    <td>
+                        @item.SupportId
+                    </td>
+                    <td>
+                        @item.SupportDate
+                    </td>
+                    <td>
+                        @item.Requester
+                    </td>
+                    <td>
+                        @item.Request
+                    </td>
+                    <td>
+                        @item.ResentTransactions
+                    </td>
+                    <td>
+                        @item.EmployeeName
+                    </td>
+                    <td>
+                        @item.SupportStatus
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+}
+
+@code {
+    List<Support> SupportObject;
+
+    protected override async Task OnInitializedAsync()
+    {
+        SupportObject = await Task.Run(() => supportService.GetAllSupports());
+    }
+
+}

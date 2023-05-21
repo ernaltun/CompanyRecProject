@@ -13,6 +13,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<MusteriService>();
 builder.Services.AddScoped<InvoiceService>();
+builder.Services.AddScoped<SupportService>();
 
 // DATABASE BAÐLANTISI
 

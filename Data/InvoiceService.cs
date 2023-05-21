@@ -15,7 +15,7 @@ namespace CompanyRecProject.Data
         {
             return await _dataContext.Invoices.ToListAsync();
         }
-		//  yeni müşteri ekle
+		//  yeni fatura ekle
 		public async Task<bool> AddNewInvoice(Invoice ınvoice)
 		{
 			await _dataContext.Invoices.AddAsync(ınvoice);
@@ -23,7 +23,7 @@ namespace CompanyRecProject.Data
 			return true;
 		}
 
-		// id lere göre kaydedilen müşterilerin kaydını getirme
+		// id lere göre kaydedilen faturaların kaydını getirme
 		public async Task<Invoice> GetInvoiceById(int id)
 		{
 			Invoice ınvoice = await _dataContext.Invoices.FirstOrDefaultAsync(x => x.InvoiceId == id);
@@ -31,7 +31,7 @@ namespace CompanyRecProject.Data
 
 		}
 
-		// musteri bilgisi düzenle
+		// fatura bilgisi düzenle
 		public async Task<bool> UpdateInvoiceDetails(Invoice ınvoice)
 		{
 			_dataContext.Invoices.Update(ınvoice);
@@ -39,7 +39,7 @@ namespace CompanyRecProject.Data
 			return true;
 		}
 
-		// musteriyi sil
+		// fatura sil
 		public async Task<bool> DeleteInvoice(Invoice ınvoice)
 		{
 			_dataContext.Invoices.Remove(ınvoice);

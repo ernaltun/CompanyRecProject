@@ -15,16 +15,16 @@ namespace CompanyRecProject.Migrations
                 name: "Invoices",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    InvoiceId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    musteriId = table.Column<int>(type: "int", nullable: false),
-                    InvoiceType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    InvoiceDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Price = table.Column<int>(type: "int", nullable: false)
+                    musteriName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    InvoiceType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    InvoiceDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Price = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Invoices", x => x.Id);
+                    table.PrimaryKey("PK_Invoices", x => x.InvoiceId);
                 });
 
             migrationBuilder.CreateTable(
@@ -42,6 +42,24 @@ namespace CompanyRecProject.Migrations
                 {
                     table.PrimaryKey("PK_Musteris", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Supports",
+                columns: table => new
+                {
+                    SupportId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SupportDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Requester = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Request = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ResentTransactions = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EmployeeName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SupportStatus = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Supports", x => x.SupportId);
+                });
         }
 
         /// <inheritdoc />
@@ -52,6 +70,9 @@ namespace CompanyRecProject.Migrations
 
             migrationBuilder.DropTable(
                 name: "Musteris");
+
+            migrationBuilder.DropTable(
+                name: "Supports");
         }
     }
 }

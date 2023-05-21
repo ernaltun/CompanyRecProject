@@ -12,6 +12,6 @@ namespace CompanyRecProject.Context
         }
         public DbSet<Musteri> Musteris { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
-
+        public DbSet<Support> Supports { get; set; }
     }
 }

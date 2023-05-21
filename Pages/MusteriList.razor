@@ -38,6 +38,9 @@ else
                 <th>
                     Musteri Telefon
                 </th>
+                <th>
+                    Düzenlemeler
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -59,6 +62,12 @@ else
                     <td>
                         @item.CustomerPhone
                     </td>
+                    <td>
+                        <a class="nav-link btn btn-primary" href="EditMusteri/@item.Id">
+                            <span class="oi oi-pencil" aria-hidden="true">Edit</span>
+                        </a>
+                    </td>
+                    
                 </tr>
             }
 

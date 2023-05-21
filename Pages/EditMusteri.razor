@@ -1,0 +1,64 @@
+﻿@page "/EditMusteri/{Id}"
+@using CompanyRecProject.Data
+@inject MusteriService musterisService
+@inject NavigationManager NavigationManager
+
+<h3>Müşteriyi Düzenle</h3>
+
+<form>
+	<div class="row">
+		<div class="col-md-8">
+			<div class="for-group">
+				<label for="musteriId" class="control-label">Musteri Id</label>
+				<input form="musteriId" class="form-control" @bind="musteriObject.Id" />
+			</div>
+			<div class="for-group">
+				<label for="musteriIsim" class="control-label">Musteri İsim</label>
+				<input form="musteriIsim" class="form-control" @bind="musteriObject.CustomerName" />
+			</div>
+			<div class="for-group">
+				<label for="musteriBakiye" class="control-label">Musteri Bakiye</label>
+				<input form="musteriBakiye" class="form-control" @bind="musteriObject.Balance" />
+			</div>
+			<div class="for-group">
+				<label for="musteriAdress" class="control-label">Musteri Adres</label>
+				<input form="musteriAdress" class="form-control" @bind="musteriObject.CustomerAdress" />
+			</div>
+			<div class="for-group">
+				<label for="musteriTelefon" class="control-label">Musteri Telefon</label>
+				<input form="musteriTelefon" class="form-control" @bind="musteriObject.CustomerPhone" />
+			</div>
+		</div>
+	</div>
+	<div>
+		<input type="button" class="btn btn-success mt-2" @onclick="@UpdateMusteriDetails" value="Kaydet">
+		<input type="button" class="btn btn-danger mt-2" @onclick="@DeleteMusteri" value="Sil">
+		<input type="button" class="btn btn-info mt-2" @onclick="@Cancel" value="Listeye Dön">
+	</div>
+</form>
+
+@code {
+
+	[Parameter]
+	public string Id { get; set; }
+	Musteri musteriObject = new Musteri();
+	protected override async Task OnInitializedAsync()
+	{
+		musteriObject = await Task.Run(() => musterisService.GetMusteriById(Convert.ToInt32(Id)));
+	}
+	protected async void DeleteMusteri()
+	{
+		await musterisService.DeleteMusteri(musteriObject);
+		NavigationManager.NavigateTo("Musteris");
+	}
+	protected async void UpdateMusteriDetails()
+	{
+		await musterisService.UpdateMusteriDetails(musteriObject);
+		NavigationManager.NavigateTo("Musteris");
+	}
+	protected async void Cancel()
+	{
+		NavigationManager.NavigateTo("Musteris");
+	}
+
+}

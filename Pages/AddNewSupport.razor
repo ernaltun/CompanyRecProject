@@ -1,0 +1,45 @@
+﻿@page "/AddNewSupport"
+@using CompanyRecProject.Data
+@inject SupportService supportService
+@inject NavigationManager NavigationManager
+
+<h3>Yeni Talep Oluştur</h3>
+
+<form>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="for-group">
+                <label for="supportDate" class="control-label">Talep Tarihi</label>
+                <input type="date" form="supportDate" class="form-control" @bind="supportObject.SupportDate" />
+            </div>
+            <div class="for-group">
+                <label for="supportRequester" class="control-label">Talep Eden</label>
+                <input form="supportsRequester" class="form-control" @bind="supportObject.Requester" />
+            </div>
+            <div class="for-group">
+                <label for="Request" class="control-label">Talep</label>
+                <input form="Request" class="form-control" @bind="supportObject.Request" />
+            </div>
+        </div>
+    </div>
+    <div>
+        <input type="button" class="btn btn-success mt-2" @onclick="@AddNewSupportDetails" value="Kaydet">
+        <input type="button" class="btn btn-success mt-2" @onclick="@Cancel" value="Listeye Dön">
+    </div>
+</form>
+
+@code {
+    Support supportObject = new Support();
+    protected async void AddNewSupportDetails()
+    {
+        await supportService.AddNewSupport(supportObject);
+        NavigationManager.NavigateTo("SupportList");
+
+    }
+
+    protected async void Cancel()
+    {
+        NavigationManager.NavigateTo("SupportList");
+    }
+
+}
