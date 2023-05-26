@@ -1,0 +1,74 @@
+﻿@page "/EditSupport/{SupportId}"
+@using CompanyRecProject.Data
+@inject SupportService supportService
+@inject NavigationManager NavigationManager
+
+<h3>Talep Düzenle</h3>
+
+<form>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="for-group">
+                <label for="supportDate" class="control-label">Talep Tarihi</label>
+                <input type="date" form="supportDate" class="form-control" @bind="supportObject.SupportDate" />
+            </div>
+            <div class="for-group">
+                <label for="supportRequester" class="control-label">Talep Eden</label>
+                <input form="supportsRequester" class="form-control" @bind="supportObject.Requester" />
+            </div>
+            <div class="for-group">
+                <label for="Request" class="control-label text-area">Talep</label>
+                <input form="Request" class="form-control" @bind="supportObject.Request" />
+            </div>
+            <div class="for-group">
+                <label for="Request" class="control-label">Son İşlem</label>
+                <input form="Request" class="form-control" @bind="supportObject.ResentTransactions" />
+            </div>
+            <div class="for-group">
+                <label for="Request" class="control-label">Personel</label>
+                <input form="Request" class="form-control" @bind="supportObject.EmployeeName" />
+            </div>
+            <div class="for-group">
+                <label for="Request" class="control-label">Talep Durumu</label>
+                <select form="Request" class="form-control" @bind="@supportObject.SupportStatus">
+                    <option value="İşlemde">İşlemde</option>
+                    <option value="İşlem Bekliyor">İşlem Bekliyor</option>
+                    <option value="Tamamlandı">Tamamlandı</option>
+                    <option value="İptal Edildi/Reddedildi">İptal Edildi/Reddedildi</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div>
+        <input type="button" class="btn btn-success mt-2" @onclick="@UpdateSupportDetails" value="Kaydet">
+        <input type="button" class="btn btn-danger mt-2" @onclick="@DeleteSupport" value="sil">
+        <input type="button" class="btn btn-info mt-2" @onclick="@Cancel" value="Listeye Dön">
+    </div>
+</form>
+
+@code {
+    [Parameter]
+    public string SupportId { get; set; }
+    Support supportObject = new Support();
+    protected override async Task OnInitializedAsync()
+    {
+        supportObject = await Task.Run(() => supportService.GetSupportsById(Convert.ToInt32(SupportId)));
+    }
+    protected async void DeleteSupport()
+    {
+        await supportService.DeleteSupports(supportObject);
+        NavigationManager.NavigateTo("SupportList");
+    }
+    protected async void UpdateSupportDetails()
+    {
+        await supportService.UpdateSupportDetails(supportObject);
+        NavigationManager.NavigateTo("SupportList");
+
+    }
+
+    protected async void Cancel()
+    {
+        NavigationManager.NavigateTo("SupportList");
+    }
+
+}

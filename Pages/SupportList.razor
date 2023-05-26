@@ -1,83 +1,99 @@
 ﻿@page "/SupportList"
 @using CompanyRecProject.Data
 @inject SupportService supportService
+@inject NavigationManager NavigationManager
 
 
 
-<NavLink class="nav-link" href="AddNewSupport">
-    <span class="btn btn-success justify-contentstart-0" aria-hidden="true">Yeni Talep Ekle</span>
 
-</NavLink>
+<div class="content px-5">
 
-<h3>Destek Talep Listesi</h3>
+    <NavLink class="nav-link" href="AddNewSupport">
+        <span class="btn btn-success justify-contentstart-0" aria-hidden="true">Yeni Talep Ekle</span>
+    </NavLink>
 
-@if (SupportObject is null)
-{
-    <button class="btn btn-primary" type="button" disabled>
-        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        Yükleniyor...
-    </button>
-}
+    <h3>Destek Talep Listesi</h3>
 
-else
-{
-    <table class="table border-dark table-bordered">
-        <thead>
-            <tr>
-                <th>
-                    Talep No
-                </th>
-                <th>
-                    Talep Tarihi
-                </th>
-                <th>
-                    Talep Eden
-                </th>
-                <th>
-                    Talep
-                </th>
-                <th>
-                    Son işlem
-                </th>
-                <th>
-                    Personel
-                </th>
-                <th>
-                    Talep Durumu
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in SupportObject)
-            {
+    @if (SupportObject is null)
+    {
+
+        <button class="btn btn-primary" type="button" disabled>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Yükleniyor...
+        </button>
+
+    }
+
+    else
+    {
+        <table class="table border-dark table-bordered">
+            <thead>
                 <tr>
-                    <td>
-                        @item.SupportId
-                    </td>
-                    <td>
-                        @item.SupportDate
-                    </td>
-                    <td>
-                        @item.Requester
-                    </td>
-                    <td>
-                        @item.Request
-                    </td>
-                    <td>
-                        @item.ResentTransactions
-                    </td>
-                    <td>
-                        @item.EmployeeName
-                    </td>
-                    <td>
-                        @item.SupportStatus
-                    </td>
+                    <th>
+                        Talep No
+                    </th>
+                    <th>
+                        Talep Tarihi
+                    </th>
+                    <th>
+                        Talep Eden
+                    </th>
+                    <th>
+                        Talep
+                    </th>
+                    <th>
+                        Son işlem
+                    </th>
+                    <th>
+                        Personel
+                    </th>
+                    <th>
+                        Talep Durumu
+                    </th>
+                    <th>
+                        Düzenlemeler
+                    </th>
                 </tr>
-            }
+            </thead>
+            <tbody>
+                @foreach (var item in SupportObject)
+                {
+                    <tr>
+                        <td>
+                            @item.SupportId
+                        </td>
+                        <td>
+                            @item.SupportDate
+                        </td>
+                        <td>
+                            @item.Requester
+                        </td>
+                        <td>
+                            @item.Request
+                        </td>
+                        <td>
+                            @item.ResentTransactions
+                        </td>
+                        <td>
+                            @item.EmployeeName
+                        </td>
+                        <td>
+                            @item.SupportStatus
+                        </td>
+                        <td>
+                            <a class="btn btn-primary" href="EditSupport/@item.SupportId">
+                                <span class="oi oi-pencil" aria-hidden="true">Edit</span>
+                            </a>
+                        </td>
 
-        </tbody>
-    </table>
-}
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    }
+</div>
+
 
 @code {
     List<Support> SupportObject;
@@ -86,5 +102,6 @@ else
     {
         SupportObject = await Task.Run(() => supportService.GetAllSupports());
     }
+
 
 }
