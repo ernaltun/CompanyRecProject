@@ -1,0 +1,75 @@
+﻿@page "/AddNewInvoice"
+@using CompanyRecProject.Data
+@inject InvoiceService invoiceService
+@inject NavigationManager NavigationManager
+@using Radzen.Blazor
+<h3>Yeni Fatura Ekle</h3>
+<div Class="rz-p-0 rz-p-md-12">
+    <RadzenCard Class="rz-my-12 rz-mx-auto rz-shadow-10" Style="max-width: 500px">
+        <RadzenRow>
+            <RadzenColumn>
+                <RadzenStack>
+                    <RadzenFormField Text="">
+                        <Start>
+                            <RadzenIcon Icon="account_circle" />
+                        </Start>
+                        <ChildContent>
+                            <RadzenTextBox @bind-Value="invoiceObject.musteriName"></RadzenTextBox>
+                        </ChildContent>
+                    </RadzenFormField>
+                    <RadzenFormField Text="Fatura Tipi Seçin">
+                        <RadzenDropDown @bind-Value="invoiceObject.InvoiceType" ValueProperty="FaturaTipId" TextProperty="FaturaName" Data="@FaturaTips"></RadzenDropDown>
+                    </RadzenFormField>
+                    <RadzenFormField>
+                        <RadzenDatePicker @bind-Value="@invoiceObject.InvoiceDate" ShowTime="true" ShowSeconds="true" HoursStep="1.5" MinutesStep="5" SecondsStep="10" DateFormat="MM/dd/yyyy HH:mm" />
+                    </RadzenFormField>
+                    <RadzenFormField>
+                        <Start>
+                            <RadzenIcon Icon="price_check" />
+                        </Start>
+                        <ChildContent>
+                            <RadzenNumeric @bind-Value="@invoiceObject.Price" />
+                        </ChildContent>
+                    </RadzenFormField>
+                </RadzenStack>
+            </RadzenColumn>
+        </RadzenRow>
+        <div>
+            <input type="button" class="btn btn-success mt-2" @onclick="@AddNewInvoiceDetails" value="Kaydet">
+            <input type="button" class="btn btn-success mt-2" @onclick="@Cancel" value="Listeye Dön">
+        </div>
+    </RadzenCard>
+</div>
+
+@code {
+    Invoice invoiceObject = new Invoice();
+    protected async void AddNewInvoiceDetails()
+    {
+        await invoiceService.AddNewInvoice(invoiceObject);
+        NavigationManager.NavigateTo("FaturaList");
+
+    }
+
+    protected async void Cancel()
+    {
+        NavigationManager.NavigateTo("FaturaList");
+    }
+
+    int secilen = 0;
+
+    public class FaturaTip
+    {
+        public int FaturaTipId { get; set; }
+        public string FaturaName { get; set; }
+
+    }
+
+    List<FaturaTip> FaturaTips = new List<FaturaTip>()
+    {
+        new FaturaTip() { FaturaTipId = 1, FaturaName = "Alış" },
+        new FaturaTip() { FaturaTipId = 1, FaturaName = "Satış" }
+    };
+
+    DateTime? tarihSec = DateTime.Now;
+
+}

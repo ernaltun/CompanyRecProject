@@ -48,7 +48,7 @@ else
                         @item.InvoiceId
                     </td>
                     <td>
-                        @item
+                        @item.musteriName
                     </td>
                     <td>
                         @item.InvoiceType
@@ -71,7 +71,6 @@ else
     protected override async Task OnInitializedAsync()
     {
         InvoiceObject = await Task.Run(() => invoiceService.GetAllInvoices());
-
     }
 }
 

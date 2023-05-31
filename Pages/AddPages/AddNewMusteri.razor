@@ -37,13 +37,13 @@
     protected async void AddNewMusteriDetails()
     {
         await musterisService.AddNewMusteri(musteriObject);
-        NavigationManager.NavigateTo("Musteris");
+        NavigationManager.NavigateTo("MusteriList");
 
     }
 
     protected async void Cancel()
     {
-        NavigationManager.NavigateTo("Musteris");
+        NavigationManager.NavigateTo("MusteriList");
     }
 
 }
