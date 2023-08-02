@@ -14,7 +14,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<MusteriService>();
 builder.Services.AddScoped<InvoiceService>();
 builder.Services.AddScoped<SupportService>();
-
+builder.Services.AddScoped<Sayac>();
 // DATABASE BAÐLANTISI
 
 builder.Services.AddDbContext<DataContext>(item => item.UseSqlServer(builder.Configuration.GetConnectionString("DataConnection")));

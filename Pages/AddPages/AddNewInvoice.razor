@@ -18,7 +18,12 @@
                         </ChildContent>
                     </RadzenFormField>
                     <RadzenFormField Text="Fatura Tipi Seçin">
-                        <RadzenDropDown @bind-Value="invoiceObject.InvoiceType" ValueProperty="FaturaTipId" TextProperty="FaturaName" Data="@FaturaTips"></RadzenDropDown>
+                        <div>
+                            <select @bind="invoiceObject.InvoiceType" class="form-select">
+                                <option value="Alış">Alış</option>
+                                <option value="Satış">Satış</option>
+                            </select>
+                        </div>
                     </RadzenFormField>
                     <RadzenFormField>
                         <RadzenDatePicker @bind-Value="@invoiceObject.InvoiceDate" ShowTime="true" ShowSeconds="true" HoursStep="1.5" MinutesStep="5" SecondsStep="10" DateFormat="MM/dd/yyyy HH:mm" />
