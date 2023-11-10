@@ -2,7 +2,7 @@
 @using CompanyRecProject.Data
 @inject MusteriService musteriService
 @inject InvoiceService invoiceService
-
+@using Radzen.Blazor
 
 <NavLink class="nav-link" href="AddNewInvoice">
     <span class="btn btn-success justify-contentstart-0" aria-hidden="true"> Fatura Ekle</span>
@@ -21,6 +21,7 @@
 else
 {
     <table class="table">
+
         <thead>
             <tr>
                 <th>
@@ -40,6 +41,7 @@ else
                 </th>
             </tr>
         </thead>
+
         <tbody>
             @foreach (var item in InvoiceObject)
             {
@@ -61,10 +63,11 @@ else
                     </td>
                 </tr>
             }
-
         </tbody>
+
     </table>
 }
+
 @code {
     List<Invoice> InvoiceObject;
 

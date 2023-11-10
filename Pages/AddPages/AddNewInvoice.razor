@@ -9,7 +9,7 @@
         <RadzenRow>
             <RadzenColumn>
                 <RadzenStack>
-                    <RadzenFormField Text="">
+                    <RadzenFormField Text="Fatura Kesilen Kurum/Kişi">
                         <Start>
                             <RadzenIcon Icon="account_circle" />
                         </Start>
@@ -18,14 +18,20 @@
                         </ChildContent>
                     </RadzenFormField>
                     <RadzenFormField Text="Fatura Tipi Seçin">
-                        <RadzenDropDown @bind-Value="invoiceObject.InvoiceType" ValueProperty="FaturaTipId" TextProperty="FaturaName" Data="@FaturaTips"></RadzenDropDown>
+                        <div class="dropdown">
+                            <select @bind="invoiceObject.InvoiceType" class="form-select" aria-label="Default select example">
+                                <option selected>Fatura Tipi Seçiniz</option>
+                                <option value="Alış">Alış</option>
+                                <option value="Satış">Satış</option>
+                            </select>
+                        </div>
                     </RadzenFormField>
-                    <RadzenFormField>
-                        <RadzenDatePicker @bind-Value="@invoiceObject.InvoiceDate" ShowTime="true" ShowSeconds="true" HoursStep="1.5" MinutesStep="5" SecondsStep="10" DateFormat="MM/dd/yyyy HH:mm" />
+                    <RadzenFormField Text="Fatura Tarihi">
+                        <RadzenDatePicker @bind-Value="@invoiceObject.InvoiceDate" ShowTime="true" ShowSeconds="true" HoursStep="1.5" MinutesStep="5" SecondsStep="10" DateFormat="dd/MM/yyyy HH:mm" />
                     </RadzenFormField>
-                    <RadzenFormField>
+                    <RadzenFormField Text="Fatura Tutarı">
                         <Start>
-                            <RadzenIcon Icon="price_check" />
+                            <RadzenIcon Icon="monetization_on" />
                         </Start>
                         <ChildContent>
                             <RadzenNumeric @bind-Value="@invoiceObject.Price" />
@@ -69,7 +75,5 @@
         new FaturaTip() { FaturaTipId = 1, FaturaName = "Alış" },
         new FaturaTip() { FaturaTipId = 1, FaturaName = "Satış" }
     };
-
     DateTime? tarihSec = DateTime.Now;
-
 }

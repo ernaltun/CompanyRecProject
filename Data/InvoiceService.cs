@@ -1,4 +1,5 @@
-﻿using CompanyRecProject.Context;
+﻿using System.ComponentModel;
+using CompanyRecProject.Context;
 using Microsoft.EntityFrameworkCore;
 
 namespace CompanyRecProject.Data
@@ -15,6 +16,7 @@ namespace CompanyRecProject.Data
         {
             return await _dataContext.Invoices.ToListAsync();
         }
+
 		//  yeni fatura ekle
 		public async Task<bool> AddNewInvoice(Invoice ınvoice)
 		{
@@ -46,5 +48,6 @@ namespace CompanyRecProject.Data
 			await _dataContext.SaveChangesAsync(true);
 			return true;
 		}
+
 	}
 }
