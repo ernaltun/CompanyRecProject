@@ -49,16 +49,16 @@
 	protected async void DeleteMusteri()
 	{
 		await musterisService.DeleteMusteri(musteriObject);
-		NavigationManager.NavigateTo("Musteris");
+		NavigationManager.NavigateTo("MusteriList");
 	}
 	protected async void UpdateMusteriDetails()
 	{
 		await musterisService.UpdateMusteriDetails(musteriObject);
-		NavigationManager.NavigateTo("Musteris");
+		NavigationManager.NavigateTo("MusteriList");
 	}
 	protected async void Cancel()
 	{
-		NavigationManager.NavigateTo("Musteris");
+		NavigationManager.NavigateTo("MusteriList");
 	}
 
 }
